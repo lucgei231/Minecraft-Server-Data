@@ -81,7 +81,7 @@ REM 12. Change directory to server folder
 cd /d "%SERVER%"
 echo Starting server...
 REM 13. Run server
-java -Xmx3000M -jar fabric.jar
+%JAVA%/jdk-8u341-windows-x64.exe -Xmx3000M -jar fabric.jar
 if errorlevel 1 (
     echo eula=true > eula.txt
 )
