@@ -20,6 +20,7 @@ if not exist "%JAVA%\javainstaller.msi" (
     echo Downloading Java 
     powershell -Command "Invoke-WebRequest -Uri https://download.oracle.com/java/23/archive/jdk-23.0.2_windows-x64_bin.msi -OutFile '%JAVA%\javainstaller.msi'"
     cd /d "%JAVA%"
+    echo Installing Java...
     ./javainstaller.msi
 )
 
