@@ -15,26 +15,18 @@ if not exist "%JAVA%" mkdir "%JAVA%"
 if not exist "%SERVER%" mkdir "%SERVER%"
 if not exist "%MODS%" mkdir "%MODS%"
 
-REM 2-4. Download Java portable scripts if not exist
-if not exist "%JAVA%\Definitions.ps1" (
-    echo Downloading Java portable scripts... (Definitions.ps1)
-    powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Definitions.ps1 -OutFile '%JAVA%\Definitions.ps1'"
-)
-if not exist "%JAVA%\Helpers.ps1" (
-    echo Downloading Java portable scripts... (Helpers.ps1)
-    powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Helpers.ps1 -OutFile '%JAVA%\Helpers.ps1'"
-)
-if not exist "%JAVA%\Setup.ps1" (  
-    echo Downloading Java portable scripts... (Setup.ps1)
-    powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Setup.ps1 -OutFile '%JAVA%\Setup.ps1'"
+
+if not exist "%JAVA%\javainstaller.msi" (  
+    echo Downloading Java 
+    powershell -Command "Invoke-WebRequest -Uri https://download.oracle.com/java/23/archive/jdk-23.0.2_windows-x64_bin.msi -OutFile '%JAVA%\javainstaller.msi'"
 )
 
 REM 5. Run Java setup
 echo Running Java setup...
-
+if not exist "%JAVA%\jdk-8u341-windows-x64." (
 cd /d "%JAVA%"
-powershell -ExecutionPolicy Bypass -File "%JAVA%\Setup.ps1"
 
+)
 REM 6. Download FabricServer.jar if not exist
 if not exist "%SERVER%\fabric.jar" (
     echo Downloading FabricServer.jar...
@@ -81,7 +73,7 @@ REM 12. Change directory to server folder
 cd /d "%SERVER%"
 echo Starting server...
 REM 13. Run server
-%JAVA%/jdk-8u341-windows-x64.exe -Xmx3000M -jar fabric.jar
+%JAVA%\jdk-8u341-windows-x64.exe -Xmx3000M -jar fabric.jar
 if errorlevel 1 (
     echo eula=true > eula.txt
 )
