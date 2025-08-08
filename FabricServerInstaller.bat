@@ -17,56 +17,69 @@ if not exist "%MODS%" mkdir "%MODS%"
 
 REM 2-4. Download Java portable scripts if not exist
 if not exist "%JAVA%\Definitions.ps1" (
+    echo Downloading Java portable scripts... (Definitions.ps1)
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Definitions.ps1 -OutFile '%JAVA%\Definitions.ps1'"
 )
 if not exist "%JAVA%\Helpers.ps1" (
+    echo Downloading Java portable scripts... (Helpers.ps1)
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Helpers.ps1 -OutFile '%JAVA%\Helpers.ps1'"
 )
-if not exist "%JAVA%\Setup.ps1" (
+if not exist "%JAVA%\Setup.ps1" (  
+    echo Downloading Java portable scripts... (Setup.ps1)
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Setup.ps1 -OutFile '%JAVA%\Setup.ps1'"
 )
 
 REM 5. Run Java setup
+echo Running Java setup...
+
+cd /d "%JAVA%"
 powershell -ExecutionPolicy Bypass -File "%JAVA%\Setup.ps1"
 
 REM 6. Download FabricServer.jar if not exist
 if not exist "%SERVER%\fabric.jar" (
+    echo Downloading FabricServer.jar...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/FabricServer.jar -OutFile '%SERVER%\fabric.jar'"
 )
 
 REM 7. Download Geyser mod if not exist
 if not exist "%MODS%\geyser.jar" (
+    echo Downloading Geyser mod...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/geyser.jar -OutFile '%MODS%\geyser.jar'"
 )
 
 REM 8. Download Floodgate mod if not exist
 if not exist "%MODS%\floodgate.jar" (
+    echo Downloading Floodgate mod...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/floodgate.jar -OutFile '%MODS%\floodgate.jar'"
 )
 
 REM 9. Download ViaFabric mod if not exist
 if not exist "%MODS%\ViaFabric-0.4.19+116-main.jar" (
+    echo Downloading ViaFabric mod...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/viafabric.jar -OutFile '%MODS%\ViaFabric-0.4.19+116-main.jar'"
 )
 
 REM 10. Download ViaVersion mod if not exist
 if not exist "%MODS%\ViaVersion-5.5.0-SNAPSHOT.jar" (
+    echo Downloading ViaVersion mod...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/viaversion.jar -OutFile '%MODS%\ViaVersion-5.5.0-SNAPSHOT.jar'"
 )
 
 REM 11. Download ViaBackwards mod if not exist
 if not exist "%MODS%\ViaBackwards-5.4.3-SNAPSHOT.jar" (
+    echo Downloading ViaBackwards mod...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/viabackwards.jar -OutFile '%MODS%\ViaBackwards-5.4.3-SNAPSHOT.jar'"
 )
 
 REM Download Fabric API if not exist
 if not exist "%MODS%\fabric-api-0.129.0+1.21.7.jar" (
+    echo Downloading Fabric API...
     powershell -Command "Invoke-WebRequest -Uri https://lucgei231.github.io/Minecraft-Server-Data/mods/fabricapi.jar -OutFile '%MODS%\fabric-api-0.129.0+1.21.7.jar'"
 )
 
 REM 12. Change directory to server folder
 cd /d "%SERVER%"
-
+echo Starting server...
 REM 13. Run server
 java -Xmx3000M -jar fabric.jar
 if errorlevel 1 (
