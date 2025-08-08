@@ -1,0 +1,14 @@
+1. if it dosent exist already, creat a folder at C:/Users/%USERNAME%/FabricServer/ and do cd C:/Users/%USERNAME%/FabricServer/
+For these only do if the files do not already exist (setup only)
+    2. run wget https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Definitions.ps1 and save to C:/Users/%USERNAME%/FabricServer/java/Definitions.ps1
+    3. run wget https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Helpers.ps1 and save to C:/Users/%USERNAME%/FabricServer/java/Helpers.ps1
+    4. run wget https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Setup.ps1 and save to C:/Users/%USERNAME%/FabricServer/java/Setup.ps1
+    5. run PowerShell.exe -ExecutionPolicy Bypass -File .\java\Setup.ps1
+    6. run wget https://lucgei231.github.io/Minecraft-Server-Data/FabricServer.jar and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/fabric.jar
+    7. run wget https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/903/downloads/fabric and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/mods/geyser.jar
+    8. run wget https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/903/downloads/fabric and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/mods/floodgate.jar
+    9. run wget https://cdn.modrinth.com/data/YlKdE5VK/versions/lhjzEj3K/ViaFabric-0.4.19%2B116-main.jar and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/mods/ViaFabric-0.4.19+116-main.jar
+    10. run wget https://cdn.modrinth.com/data/P1OZGk5p/versions/TTL41BjE/ViaVersion-5.5.0-SNAPSHOT.jar and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/mods/ViaVersion-5.5.0-SNAPSHOT.jar
+    11. run wget https://cdn.modrinth.com/data/NpvuJQoq/versions/TPhR1qHG/ViaBackwards-5.4.3-SNAPSHOT.jar and place in C:/Users/%USERNAME%/FabricServer/MinecraftServer/mods/ViaBackwards-5.4.3-SNAPSHOT.jar
+12. cd C:/Users/%USERNAME%/FabricServer/MinecraftServer/
+13. run java -Xmx3000M -jar fabric.jar
