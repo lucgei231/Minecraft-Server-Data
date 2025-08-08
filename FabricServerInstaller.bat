@@ -19,14 +19,11 @@ if not exist "%MODS%" mkdir "%MODS%"
 if not exist "%JAVA%\javainstaller.msi" (  
     echo Downloading Java 
     powershell -Command "Invoke-WebRequest -Uri https://download.oracle.com/java/23/archive/jdk-23.0.2_windows-x64_bin.msi -OutFile '%JAVA%\javainstaller.msi'"
+    cd /d "%JAVA%"
+    ./javainstaller.msi
 )
 
-REM 5. Run Java setup
-echo Running Java setup...
-if not exist "%JAVA%\jdk-8u341-windows-x64." (
-cd /d "%JAVA%"
 
-)
 REM 6. Download FabricServer.jar if not exist
 if not exist "%SERVER%\fabric.jar" (
     echo Downloading FabricServer.jar...
