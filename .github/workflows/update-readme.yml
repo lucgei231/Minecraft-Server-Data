@@ -24,12 +24,10 @@ jobs:
           root = Path(".")
           readme_path = root / "README.md"
 
-          lines = []
+          items = []
           for p in sorted(root.rglob("*")):
               if not p.is_file():
                   continue
-
-              # skip hidden/system files and the README itself
               if ".git" in p.parts or ".github" in p.parts:
                   continue
               if p.name == "README.md":
@@ -37,11 +35,11 @@ jobs:
 
               rel = p.relative_to(root).as_posix()
               url = f"https://lucgei231.github.io/Minecraft-Server-Data/{rel}"
-              lines.append(f"{p.name} | {url}")
+              items.append(f"- {p.name} | {url}")
 
           section = ["## Downloads", ""]
-          if lines:
-              section.extend(lines)
+          if items:
+              section.extend(items)
           else:
               section.append("No files available.")
 
