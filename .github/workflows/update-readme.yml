@@ -1,0 +1,75 @@
+name: Update README with file links
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate README links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path(".")
+          readme = root / "README.md"
+
+          # collect files to include
+          entries = []
+          for p in sorted(root.rglob("*")):
+              if not p.is_file():
+                  continue
+
+              # skip repo metadata / hidden folders
+              if ".git" in p.parts or ".github" in p.parts:
+                  continue
+              if p.name == "README.md":
+                  continue
+
+              rel = p.relative_to(root).as_posix()
+              url = f"https://lucgei231.github.io/Minecraft-Server-Data/{rel}"
+              entries.append(f"{p.name} | {url}")
+
+          section = ["## Downloads", ""]
+          if entries:
+              section.extend(entries)
+          else:
+              section.append("No files found.")
+
+          existing = readme.read_text(encoding="utf-8") if readme.exists() else ""
+
+          start = existing.find("## Downloads")
+          if start != -1:
+              end = existing.find("\n## ", start + 1)
+              if end == -1:
+                  end = len(existing)
+              existing = existing[:start].rstrip() + existing[end:].lstrip()
+
+          new_content = (existing.rstrip() + "\n\n" + "\n".join(section) + "\n").strip() + "\n"
+          readme.write_text(new_content, encoding="utf-8")
+          PY
+
+      - name: Commit README update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No README changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: update README links"
+          git push
