@@ -16,21 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate README links
+      - name: Generate README file links
         run: |
           python - <<'PY'
           from pathlib import Path
 
           root = Path(".")
-          readme = root / "README.md"
+          readme_path = root / "README.md"
 
-          # collect files to include
-          entries = []
+          lines = []
           for p in sorted(root.rglob("*")):
               if not p.is_file():
                   continue
 
-              # skip repo metadata / hidden folders
+              # skip hidden/system files and the README itself
               if ".git" in p.parts or ".github" in p.parts:
                   continue
               if p.name == "README.md":
@@ -38,15 +37,15 @@ jobs:
 
               rel = p.relative_to(root).as_posix()
               url = f"https://lucgei231.github.io/Minecraft-Server-Data/{rel}"
-              entries.append(f"{p.name} | {url}")
+              lines.append(f"{p.name} | {url}")
 
           section = ["## Downloads", ""]
-          if entries:
-              section.extend(entries)
+          if lines:
+              section.extend(lines)
           else:
-              section.append("No files found.")
+              section.append("No files available.")
 
-          existing = readme.read_text(encoding="utf-8") if readme.exists() else ""
+          existing = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
           start = existing.find("## Downloads")
           if start != -1:
@@ -56,10 +55,10 @@ jobs:
               existing = existing[:start].rstrip() + existing[end:].lstrip()
 
           new_content = (existing.rstrip() + "\n\n" + "\n".join(section) + "\n").strip() + "\n"
-          readme.write_text(new_content, encoding="utf-8")
+          readme_path.write_text(new_content, encoding="utf-8")
           PY
 
-      - name: Commit README update
+      - name: Commit README updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -71,5 +70,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: update README links"
+          git commit -m "chore: update README file links"
           git push
