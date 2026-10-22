@@ -6,6 +6,7 @@
 - FabricServerInstaller.bat | https://lucgei231.github.io/Minecraft-Server-Data/FabricServerInstaller.bat
 - NewTextures.zip | https://lucgei231.github.io/Minecraft-Server-Data/NewTextures.zip
 - QuizFabric3DS.cia | https://lucgei231.github.io/Minecraft-Server-Data/QuizFabric3DS.cia
+- QuizFabric3DSProd.cia | https://lucgei231.github.io/Minecraft-Server-Data/QuizFabric3DSProd.cia
 - TerraInveditThreedee.cia | https://lucgei231.github.io/Minecraft-Server-Data/TerraInveditThreedee.cia
 - butterscotch.cia | https://lucgei231.github.io/Minecraft-Server-Data/butterscotch.cia
 - Definitions.ps1 | https://lucgei231.github.io/Minecraft-Server-Data/java-portable-master/Definitions.ps1
